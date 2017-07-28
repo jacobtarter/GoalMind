@@ -8,6 +8,9 @@ var app = require('../app');
 var debug = require('debug')('smartgoals:server');
 var http = require('http');
 
+var compression = require('compression');
+app.use(compression());
+
 /**
  * Get port from environment and store in Express.
  */
