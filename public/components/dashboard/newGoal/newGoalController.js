@@ -120,6 +120,7 @@ angular.module('app').controller('NewGoalController', ['$scope', '$state', 'goal
       {
         $scope.newgoal.repeat_times = $scope.repeatNumber;
         $scope.newgoal.goal_type = "REPEAT"
+        $scope.newgoal.due_date;
       }
 
 

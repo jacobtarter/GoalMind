@@ -52,8 +52,8 @@
                 url: '/profile',
                 templateUrl: './components/dashboard/profile/profile.html',
                 controller: 'profileController'
-            });   
-        $urlRouterProvider.otherwise('/#/');
+            });
+        $urlRouterProvider.otherwise('/');
         lockProvider.init({
             clientID: 'v4RQR5pnZwIh6v3jBFlME2x6gFF6ye7q',
             domain: 'goalmind.auth0.com',

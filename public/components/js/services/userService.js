@@ -32,6 +32,7 @@ angular.module('app').factory('userService', ['$http', '$rootScope', 'lock', 'jw
             }).then(function successCallback(response) {//successCallback
                 localStorage.setItem('userProfile', JSON.stringify(response.data));
                 functions.sync();
+                console.log("update user");
                 callback(true);
 
             }, function errorCallback(response) {//errorCallback do something to inform of error
@@ -52,19 +53,26 @@ angular.module('app').factory('userService', ['$http', '$rootScope', 'lock', 'jw
         init : function(){
             console.log("userService init ran");
             if (localStorage.getItem('id_token') && !jwtHelper.isTokenExpired(localStorage.getItem('id_token'))) {
+                console.log("test");
                 console.log("access token expires in " + jwtHelper.getTokenExpirationDate(localStorage.getItem('id_token')));
                 console.log("init logged in");
                 authManager.authenticate();
                 lock.getProfile(localStorage.getItem('id_token'), function(error, profile) {
                     if (error) {
+                        console.log('error');
                         flash.create('danger', "We are having trouble getting your information. Try refreshing the page!");
                     } else {
+                        console.log('else');
+                        $state.go('dashboard.goals');
+
                         functions.updateUser({}, function(success) {
                             if (success) {
+                                console.log("transfer state");
                                 $state.go('dashboard.goals');
                                 localStorage.setItem('authProfile', JSON.stringify(profile));
                                 $rootScope.authProfile = profile;
                             }
+
                         });
                     }
                 });

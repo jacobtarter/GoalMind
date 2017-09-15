@@ -9,7 +9,10 @@ var moment = require('moment');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var goals = require('./routes/smartgoals');
-mongoose.connect('mongodb://localhost:27017/smartgoals');
+var promise = mongoose.connect('mongodb://localhost:27017/smartgoals', {
+  useMongoClient: true,
+
+});
 var app = express();
 
 // view engine setup

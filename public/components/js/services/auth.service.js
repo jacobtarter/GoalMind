@@ -30,6 +30,9 @@
                     if (error) {
                         return console.log(error); //throw better error here(redirect to page?)
                     } else {
+
+                      //Somewhere in here add a check for Admin user.  If Admin, redirect to an admin view.
+                      
                         localStorage.setItem('id_token', authResult.idToken);
                         userService.mongoAuth(profile.user_id, function(success) {
                             if (success) {

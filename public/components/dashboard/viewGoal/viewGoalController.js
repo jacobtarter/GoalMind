@@ -13,9 +13,9 @@ angular.module('app').controller('ViewGoalController', ['$scope', '$state', '$st
             //var keys=Object.keys($scope.edit);
             Object.getOwnPropertyNames($scope.edit).forEach(
               function (val, idx, array) {
-                console.log(val + ' -> ' + $scope.edit[val]);
+                //console.log(val + ' -> ' + $scope.edit[val]);
                 $scope.edit[val]=false;
-                console.log(val + ' -> ' + $scope.edit[val]);
+                //console.log(val + ' -> ' + $scope.edit[val]);
               }
             );
         });

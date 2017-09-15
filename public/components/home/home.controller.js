@@ -7,4 +7,5 @@ function HomeController(userService, authService) {
     hm.authService = authService;
     console.log('running home init');
     userService.init();
-}
+
+  }
