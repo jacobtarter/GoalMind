@@ -451,20 +451,14 @@ updatePriorities = function(goals) {
         if (goal.goal_type == 'DUEDATE') {
             var dueDate = moment(goal.due_date);
             var date = moment();
-            var daysAway = dueDate.diff(date, 'days');
+            var daysAway = (dueDate.diff(date, 'days'))+1;
             //console.log(goal.title + ": days til due: " + daysAway);
-            if (daysAway==0)
-            {
-              goal.urgency_level = daysAway ;
-
-            }
-
-            else if (daysAway < 0) {
+            if (daysAway < 0) {
                 goal.urgency_level = -1;
                 goal.over_due = true;
             }
             else {
-              goal.urgency_level=daysAway+1;
+              goal.urgency_level=daysAway;
             }
             goal.save(function(err) {
                 if (err) {
@@ -474,46 +468,7 @@ updatePriorities = function(goals) {
                     //res.status(200).json({message: "Goal updated"});
                 }
             });
-        } else if (goal.goal_type == 'PRIORITY') {
-            var date = moment();
-            var dateMade = moment(goal.date_created);
-            var daysAgo = dateMade.diff(date, 'days');
-            if (goal.user_priority == "BURN") {
-                goal.urgency_level = (daysToMaxBurner - daysAgo);
-                if (goal.urgency_level < 0) {
-                    goal.urgency_level = 0;
-                }
-            } else if (goal.user_priority == "LOW") {
-                goal.urgency_level = (daysToMaxLow - daysAgo);
-                if (goal.urgency_level < 0) {
-                    goal.urgency_level = 0;
-                }
-            } else if (goal.user_priority == "MEDIUM") {
-                goal.urgency_level = (daysToMaxMedium - daysAgo);
-                if (goal.urgency_level < 0) {
-                    goal.urgency_level = 0;
-                }
-            } else if (goal.user_priority == "HIGH") { //HIGH
-                goal.urgency_level = (daysToMaxHigh - daysAgo);
-                if (goal.urgency_level < 0) {
-                    goal.urgency_level = 0;
-                }
-            }
-            if (goal.user_priority == "MAX") {
-                goal.urgency_level = (daysToMaxMax - daysAgo);
-                if (goal.urgency_level < 0) {
-                    goal.urgency_level = 0;
-                }
-            }
-            goal.save(function(err) {
-                if (err) {
-                    //res.status(500).send(err.message);
-                } else {
-                    //console.log(goal);
-                    //res.status(200).json({message: "Goal updated"});
-                }
-            });
-        } else if (goal.goal_type == 'REPEAT') {
+        }  else if (goal.goal_type == 'REPEAT') {
             var completesRemaining = (goal.repeat_times - goal.times_this_week);
             var date = moment();
             var dayOfWeek = date.day();
